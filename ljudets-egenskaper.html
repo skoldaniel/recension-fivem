@@ -42,4 +42,191 @@
 
     <div class="question" data-q="2">
       <strong>2. Ungefär hur snabb är ljudets hastighet i luft?</strong>
-      <div class="answers"
+      <div class="answers">
+        <label><input type="radio" name="q2" value="a"> ~34 m/s</label>
+        <label><input type="radio" name="q2" value="b"> ~340 m/s</label>
+        <label><input type="radio" name="q2" value="c"> ~3400 m/s</label>
+        <label><input type="radio" name="q2" value="d"> ~3,4 m/s</label>
+      </div>
+    </div>
+
+    <div class="question" data-q="3">
+      <strong>3. Vad är ett eko?</strong>
+      <div class="answers">
+        <label><input type="radio" name="q3" value="a"> Ett ljud som alstras av elektriska störningar.</label>
+        <label><input type="radio" name="q3" value="b"> Ett ljud som studsar mot en yta och kommer tillbaka.</label>
+        <label><input type="radio" name="q3" value="c"> Ett slags ultraljud som bara djur hör.</label>
+        <label><input type="radio" name="q3" value="d"> Ett ljud som bara uppstår i vatten.</label>
+      </div>
+    </div>
+
+    <div class="question" data-q="4">
+      <strong>4. Var färdas ljud snabbast?</strong>
+      <div class="answers">
+        <label><input type="radio" name="q4" value="a"> I luft</label>
+        <label><input type="radio" name="q4" value="b"> I vakuum</label>
+        <label><input type="radio" name="q4" value="c"> I vatten eller andra täta material</label>
+        <label><input type="radio" name="q4" value="d"> Lika snabbt i alla material</label>
+      </div>
+    </div>
+
+    <div class="question" data-q="5">
+      <strong>5. Ljudvågor består av ...</strong>
+      <div class="answers">
+        <label><input type="radio" name="q5" value="a"> elektriska fält.</label>
+        <label><input type="radio" name="q5" value="b"> förtätningar och förtunningar i ett material (t.ex. luft).</label>
+        <label><input type="radio" name="q5" value="c"> magnetiska impulser.</label>
+        <label><input type="radio" name="q5" value="d"> synliga vågor av färg.</label>
+      </div>
+    </div>
+
+    <div class="question" data-q="6">
+      <strong>6. Vad använder yrkesfiskare oftast för att hitta fisk enligt texten?</strong>
+      <div class="answers">
+        <label><input type="radio" name="q6" value="a"> Ekolod (sändare och mottagare under vatten).</label>
+        <label><input type="radio" name="q6" value="b"> Radar.</label>
+        <label><input type="radio" name="q6" value="c"> Ljudvågor i luften.</label>
+        <label><input type="radio" name="q6" value="d"> Magnetiska sonder.</label>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:8px;">
+      <strong>7. Välj ett ord från listan som passar i meningarna (matcha):</strong>
+      <p style="margin:8px 0 4px 0; color:#444">Ordlista: <em>eko</em>, <em>knallen</em>, <em>vibrationer</em>, <em>blixten</em></p>
+      <div class="match-grid">
+        <div>1) Ljud är ... som breder ut sig i luften.</div>
+        <div><select id="m1"><option value="">— välj —</option><option value="vibrationer">vibrationer</option><option value="eko">eko</option><option value="knallen">knallen</option><option value="blixten">blixten</option></select></div>
+
+        <div>2) Ett ... är ett ljud som studsar tillbaka.</div>
+        <div><select id="m2"><option value="">— välj —</option><option value="eko">eko</option><option value="vibrationer">vibrationer</option><option value="knallen">knallen</option><option value="blixten">blixten</option></select></div>
+
+        <div>3) När det åskar kommer ... före knallen.</div>
+        <div><select id="m3"><option value="">— välj —</option><option value="blixten">blixten</option><option value="knallen">knallen</option><option value="eko">eko</option><option value="vibrationer">vibrationer</option></select></div>
+      </div>
+      <p style="font-size:0.9rem; color:#666; margin-top:8px;">Tips: tänk på vad du ser först (ljuset) och vad du hör senare (knallen).</p>
+    </div>
+
+    <div style="margin-top:12px;">
+      <button type="button" id="checkBtn" class="btn">Skicka in</button>
+      <button type="button" id="resetBtn" class="btn" style="background:#6c757d; margin-left:8px;">Återställ</button>
+    </div>
+
+    <div id="feedback" style="margin-top:12px;"></div>
+  </form>
+
+<script>
+const correct = {
+  q1: 'b',
+  q2: 'b',
+  q3: 'b',
+  q4: 'c',
+  q5: 'b',
+  q6: 'a'
+};
+
+document.getElementById('checkBtn').addEventListener('click', () => {
+  const feedback = document.getElementById('feedback');
+  feedback.innerHTML = '';
+  let score = 0;
+  const totalRadios = Object.keys(correct).length;
+  const totalMatch = 3;
+  const total = totalRadios + totalMatch;
+
+  // check radio questions
+  let qIndex = 1;
+  for (let q in correct) {
+    const els = document.getElementsByName(q);
+    let chosen = null;
+    for (let i=0;i<els.length;i++){ if(els[i].checked) chosen = els[i].value; }
+    const msg = document.createElement('div');
+    msg.className = 'result';
+    if (chosen === correct[q]) {
+      score++;
+      msg.classList.add('correct');
+      msg.innerHTML = '<strong>Fråga '+ qIndex +': Rätt</strong><div style="margin-top:6px; color:#333;">' + explanation(q) + '</div>';
+    } else {
+      msg.classList.add('wrong');
+      msg.innerHTML = '<strong>Fråga '+ qIndex +': Fel</strong><div style="margin-top:6px; color:#333;">' + explanation(q, chosen) + '</div>';
+    }
+    feedback.appendChild(msg);
+    qIndex++;
+  }
+
+  // match questions
+  const m1 = document.getElementById('m1').value;
+  const m2 = document.getElementById('m2').value;
+  const m3 = document.getElementById('m3').value;
+
+  let matchCorrectCount = 0;
+  if (m1 === 'vibrationer') matchCorrectCount++;
+  if (m2 === 'eko') matchCorrectCount++;
+  if (m3 === 'blixten') matchCorrectCount++; // corrected expectation
+
+  score += matchCorrectCount;
+
+  const matchMsg = document.createElement('div');
+  matchMsg.className = matchCorrectCount === totalMatch ? 'result correct' : 'result wrong';
+  matchMsg.innerHTML = '<strong>Matchningsdel</strong><div style="margin-top:6px;">Du fick ' + matchCorrectCount + ' av ' + totalMatch + ' rätt i matchningsdelen.</div>';
+  feedback.appendChild(matchMsg);
+
+  // Summary
+  const summary = document.createElement('div');
+  summary.style.marginTop = '12px';
+  summary.style.padding = '12px';
+  summary.style.borderRadius = '8px';
+  summary.style.background = '#f4f7ff';
+  summary.innerHTML = '<strong>Poäng:</strong> Du fick ' + score + ' av ' + total + ' poäng.';
+  feedback.appendChild(summary);
+
+  // detailed explanations
+  const details = document.createElement('details');
+  details.innerHTML = '<summary style="cursor:pointer; font-weight:600; margin-top:8px;">Läs förklaringar</summary>' + fullExplanations();
+  feedback.appendChild(details);
+
+  // disable further submits until reset
+  document.getElementById('checkBtn').disabled = true;
+});
+
+document.getElementById('resetBtn').addEventListener('click', () => {
+  document.getElementById('quizForm').reset();
+  document.getElementById('feedback').innerHTML = '';
+  document.getElementById('checkBtn').disabled = false;
+});
+
+function explanation(q, chosen) {
+  switch(q) {
+    case 'q1':
+      return 'Ljud uppstår när ett föremål vibrerar och dessa vibrationer sprider sig i luften som ljudvågor.';
+    case 'q2':
+      return 'Rätt är ungefär 340 m/s i luft — ofta avrundat till ~340 m/s (ungefär 1 km på 3 sekunder).';
+    case 'q3':
+      return 'Ett eko är ett ljud som studsar mot en yta (t.ex. bergvägg eller hus) och kommer tillbaka till dig.';
+    case 'q4':
+      return 'Ljud färdas snabbare i tätare material (t.ex. vatten, metall) än i luft eftersom partiklarna ligger tätare.';
+    case 'q5':
+      return 'Ljudvågor består av växlande förtätningar och förtunningar i material såsom luft.';
+    case 'q6':
+      return 'Ekolod sänder ljudstötar i vattnet och mäter tiden tills ekot kommer tillbaka — användbart för att hitta fisk och mäta djup.';
+    default:
+      return '';
+  }
+}
+
+function fullExplanations(){
+  return '<ul style="padding-left:18px; color:#222;">'
+    + '<li><strong>Fråga 1:</strong> Ljud = vibrationer som sprider sig i luft (exempel: gitarrsträng som vibrerar).</li>'
+    + '<li><strong>Fråga 2:</strong> Ljudets hastighet i luft är ungefär 340 m/s — därför kan man räkna sekunder mellan blixt och knall för att uppskatta avstånd.</li>'
+    + '<li><strong>Fråga 3:</strong> Eko = ljud som studsar mot vägg eller bergvägg och kommer tillbaka.</li>'
+    + '<li><strong>Fråga 4:</strong> Ljud går snabbare i tätare ämnen (t.ex. vatten eller metall) eftersom atomernas kollisioner sprider ljudet snabbare.</li>'
+    + '<li><strong>Fråga 5:</strong> Ljudvågor består av förtätningar och förtunningar av luftmolekyler.</li>'
+    + '<li><strong>Fråga 6:</strong> Ekolod används av yrkesfiskare för att hitta fisk och mäta djup med hjälp av ljudstötar i vattnet.</li>'
+    + '<li><strong>Matchning:</strong> "vibrationer" beskriver vad ljud är; "eko" är ett ljud som studsar tillbaka; i meningen om åska ser man först blixten (ljuset) och hör knallen (ljudet) senare — därför passar "blixten" i meningen "När det åskar kommer ... före knallen."</li>'
+  + '</ul>';
+}
+</script>
+
+<footer>
+  <div>Skapad utifrån sidor om <em>Ljudets egenskaper</em>. Vill du ha fler frågor, anpassning till en viss årskurs eller export (PDF/Moodle)? Säg till!</div>
+</footer>
+</body>
+</html>
