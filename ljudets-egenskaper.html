@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Ljudets egenskaper — Quiz</title>
+<style>
+  body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; padding: 24px; max-width:900px; margin:0 auto; background:#fbfbfd; color:#111; }
+  h1 { font-size:1.8rem; margin-bottom:6px; }
+  p.lead { color:#444; margin-top:0; margin-bottom:18px;}
+  .card { background:white; border-radius:10px; padding:18px; box-shadow:0 6px 18px rgba(0,0,0,0.06); margin-bottom:16px;}
+  .question { margin-bottom:12px; }
+  .answers { margin-top:8px; }
+  label { display:block; margin:6px 0; cursor:pointer; }
+  input[type="radio"] { margin-right:8px; }
+  .btn { display:inline-block; background:#0b74de; color:white; padding:10px 14px; border-radius:8px; border:0; cursor:pointer; font-weight:600; }
+  .btn:disabled { opacity:0.5; cursor:not-allowed; }
+  .result { margin-top:14px; padding:12px; border-radius:8px; }
+  .correct { background:#e6fbef; border:1px solid #b6f0c8; color:#064d2b;}
+  .wrong { background:#fff0f0; border:1px solid #f2b6b6; color:#6b1414;}
+  details { margin-top:8px; }
+  footer { margin-top:28px; color:#666; font-size:0.9rem; }
+  .match-grid { display:grid; grid-template-columns:1fr 220px; gap:8px; align-items:center; }
+  select { width:100%; padding:8px; border-radius:6px; border:1px solid #ddd; }
+</style>
+</head>
+<body>
+  <h1>Ljudets egenskaper — Flervalsquiz</h1>
+  <p class="lead">Testa dina kunskaper utifrån sidorna om ljud: vibrationer, ljudvågor, hastighet, eko och ekolod.</p>
+
+  <form id="quizForm" class="card">
+
+    <div class="question" data-q="1">
+      <strong>1. Hur skapas ljud enligt texten?</strong>
+      <div class="answers">
+        <label><input type="radio" name="q1" value="a"> Genom kemiska reaktioner i luften.</label>
+        <label><input type="radio" name="q1" value="b"> Av vibrationer i ett föremål som sprider sig i luften.</label>
+        <label><input type="radio" name="q1" value="c"> Genom att luften värms upp snabbt.</label>
+        <label><input type="radio" name="q1" value="d"> Genom att ljus reflekteras mot ytor.</label>
+      </div>
+    </div>
+
+    <div class="question" data-q="2">
+      <strong>2. Ungefär hur snabb är ljudets hastighet i luft?</strong>
+      <div class="answers"
